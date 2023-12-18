@@ -12,7 +12,7 @@ route.post("/login", require("./login"));
 route.get("/camps", require("./getCamps"));
 
 // Add camp : /camping/api/admin/addCamp
-route.post("/addCamp", multer.single("photo"), require("./addCamp"));
+route.post("/addCamp", multer.single("file"), require("./addCamp"));
 
 // Update camp : /camping/api/admin/updateCamp
 route.put("/updateCamp", require("./updateCamp"));

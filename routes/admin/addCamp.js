@@ -15,6 +15,8 @@ module.exports = async (req, res) => {
       period,
     } = req.body;
     console.log(req.body);
+    const imgUrl = `${req.protocol}://${req.headers.host}/file/${req.file.filename}`;
+    console.log(imgUrl);
     if (
       req.file &&
       req.body.title &&
@@ -27,14 +29,15 @@ module.exports = async (req, res) => {
       req.body.desc &&
       req.body.period
     ) {
-      const imgBuffer = fs.readFileSync(
-        path.join(
-          "D:/Dévelopement WEB/campapp/backend/",
-          "uploads",
-          req.file.filename
-        )
-      );
-      const base64Image = await imgBuffer.toString("base64");
+      // const imgBuffer = fs.readFileSync(
+      //   path.join(
+      //     "D:/Dévelopement WEB/campapp/backend/",
+      //     "uploads",
+      //     req.file.filename
+      //   )
+      // );
+      // const base64Image = await imgBuffer.toString("base64");
+      const imgUrl = `${req.protocol}://${req.headers.host}/file/${req.file.filename}`;
       const newCamp = await new Camp({
         title,
         limiteParticipant,
@@ -44,7 +47,7 @@ module.exports = async (req, res) => {
         city,
         price,
         period,
-        imgUrl: base64Image,
+        imgUrl,
         desc,
       });
       await newCamp.save();
