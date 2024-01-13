@@ -1,37 +1,35 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+const path = require("path");
+var cors = require("cors");
 require("dotenv").config();
-const Grid = require("gridfs-stream");
-const connection = require("./connect");
-//ENVIRONMENT VARIABLES
-const mongoURI =
-  "mongodb+srv://gmcws2024:gomycode2024@cluster0.4dmpkdc.mongodb.net/camping-app?retryWrites=true&w=majority";
-const conn = mongoose.createConnection(mongoURI, { useNewUrlParser: true });
-// CONNECT TO DATABASE
-// connection();
-// const conn = mongoose.connection;
-let gfs;
+const URI = process.env.URI;
+const PORT = process.env.PORT || 5000;
 
-//MIDDLEWARES
-// app.use(express.json());
+// database connection
+mongoose
+  .connect(`${URI}`)
+  .then(() => {
+    console.log("connected to database");
+  })
+  .catch((err) => {
+    console.log(err);
+    console.log("could not connect to database");
+  });
 
-conn.once("open", () => {
-  gfs = Grid(conn, mongoose.mongo);
-  gfs.collection("photos");
-});
+// global middlewares
+app.use(express.json());
+app.use(cors());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-const PORT = process.env.PORT || 7466;
 // user routes
-// app.use("/camping/api", require("./routes/user"));
+app.use("/camping/api", require("./routes/user"));
+
 // admin routes
 app.use("/camping/api/admin", require("./routes/admin"));
 
-// app.use((req, res) => {
-//   res.send("API IS RUNNING...");
-// });
-
 app.listen(PORT, (err) => {
   if (err) throw err;
-  console.log("SERVER IS UP AND RUNNING on PORT");
+  console.log(`SERVER IS UP AND RUNNING ON ${PORT}`);
 });

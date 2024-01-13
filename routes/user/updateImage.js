@@ -1,11 +1,9 @@
-const Camp = require("../../models/Camp");
-const cloudinary = require("../../middlewares/cloudinary");
-
+const User = require("../../models/User");
 const fs = require("fs");
 const path = require("path");
 module.exports = async (req, res) => {
   try {
-    let { campId } = req.query;
+    let { userId } = req.query;
     // const imgBuffer = fs.readFileSync(
     //   path.join(
     //     "D:/Dévelopement WEB/campapp/backend/",
@@ -14,15 +12,11 @@ module.exports = async (req, res) => {
     //   )
     // );
     // const base64Image = await imgBuffer.toString("base64");
-    // const imgUrl = `/uploads/${req.file.filename}`;
-    const uploader = async (path) => await cloudinary.uploads(path, "uploads");
-    let { path } = file;
-    const { url } = uploader(path);
-    fs.unlinkSync(path);
-    const newCamp = await Camp.findByIdAndUpdate(
-      campId,
+    const imgUrl = `/uploads/${req.file.filename}`;
+    const newCamp = await User.findByIdAndUpdate(
+      userId,
       {
-        $set: { imgUrl: url },
+        $set: { imgUrl },
       },
       { new: true }
     );

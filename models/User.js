@@ -34,7 +34,7 @@ const userSchema = new Schema(
     },
     imgUrl: {
       type: "string",
-      default: "https://cdn-icons-png.flaticon.com/512/9131/9131529.png",
+      default: "https://uploadscdn-icons-png.flaticon.com/512/9131/9131529.png",
     },
     isUser: {
       type: Boolean,

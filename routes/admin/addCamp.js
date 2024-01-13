@@ -1,6 +1,7 @@
 const Camp = require("../../models/Camp");
+const cloudinary = require("../../middlewares/cloudinary");
 const fs = require("fs");
-const path = require("path");
+// const path = require("path");
 module.exports = async (req, res) => {
   try {
     let {
@@ -14,20 +15,20 @@ module.exports = async (req, res) => {
       desc,
       period,
     } = req.body;
-    console.log(req.body);
-    const imgUrl = `${req.protocol}://${req.headers.host}/file/${req.file.filename}`;
-    console.log(imgUrl);
+    // console.log(req.body);
+    // const imgUrl = `${req.protocol}://${req.headers.host}/file/${req.file.filename}`;
+    // console.log(imgUrl);
     if (
       req.file &&
-      req.body.title &&
-      req.body.limiteParticipant &&
-      req.body.region &&
-      req.body.city &&
-      req.body.place &&
-      req.body.date &&
-      req.body.price &&
-      req.body.desc &&
-      req.body.period
+      title &&
+      limiteParticipant &&
+      region &&
+      city &&
+      place &&
+      date &&
+      price &&
+      desc &&
+      period
     ) {
       // const imgBuffer = fs.readFileSync(
       //   path.join(
@@ -37,7 +38,13 @@ module.exports = async (req, res) => {
       //   )
       // );
       // const base64Image = await imgBuffer.toString("base64");
-      const imgUrl = `${req.protocol}://${req.headers.host}/file/${req.file.filename}`;
+      const uploader = async (path) =>
+        await cloudinary.uploads(path, "uploads");
+      let { path } = file;
+      const { url } = uploader(path);
+      fs.unlinkSync(path);
+
+      // const imgUrl = `/uploads/${req.file.filename}`;
       const newCamp = await new Camp({
         title,
         limiteParticipant,
@@ -47,7 +54,7 @@ module.exports = async (req, res) => {
         city,
         price,
         period,
-        imgUrl,
+        imgUrl: url,
         desc,
       });
       await newCamp.save();

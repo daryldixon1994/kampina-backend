@@ -1,6 +1,6 @@
 const express = require("express");
 const route = express.Router();
-const multer = require("../../middlewares/multer");
+const upload = require("../../middlewares/upload");
 
 // Register router : /camping/api/admin/register
 // route.post("/register", require("./register"));
@@ -12,7 +12,7 @@ route.post("/login", require("./login"));
 route.get("/camps", require("./getCamps"));
 
 // Add camp : /camping/api/admin/addCamp
-route.post("/addCamp", multer.single("file"), require("./addCamp"));
+route.post("/addCamp", upload.single("photo"), require("./addCamp"));
 
 // Update camp : /camping/api/admin/updateCamp
 route.put("/updateCamp", require("./updateCamp"));
@@ -20,7 +20,7 @@ route.put("/updateCamp", require("./updateCamp"));
 // Update camp photo : /camping/api/admin/updateCampPhoto
 route.put(
   "/updateCampPhoto",
-  multer.single("photo"),
+  upload.single("photo"),
   require("./updateCampPhoto")
 );
 
@@ -41,5 +41,8 @@ route.get("/users", require("./getUsers"));
 
 // Get single user : /camping/api/admin/user
 route.get("/user", require("./getUser"));
+
+// remove single user : /camping/api/admin/removeUser
+route.delete("/removeUser", require("./removeUser"));
 
 module.exports = route;
