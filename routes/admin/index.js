@@ -3,7 +3,7 @@ const route = express.Router();
 const upload = require("../../middlewares/upload");
 
 // Register router : /camping/api/admin/register
-// route.post("/register", require("./register"));
+route.post("/register", require("./register"));
 
 // Login router : /camping/api/admin/login
 route.post("/login", require("./login"));
