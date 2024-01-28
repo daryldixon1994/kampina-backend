@@ -20,15 +20,40 @@ mongoose
 
 // global middlewares
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // user routes
-app.use("/camping/api", require("./routes/user"));
+app.use(
+  "/camping/api",
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  }),
+  require("./routes/user")
+);
 
 // admin routes
-app.use("/camping/api/admin", require("./routes/admin"));
+app.use(
+  "/camping/api/admin",
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  }),
+  require("./routes/admin")
+);
 
 app.listen(PORT, (err) => {
   if (err) throw err;
