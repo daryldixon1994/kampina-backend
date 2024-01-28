@@ -37,6 +37,7 @@ module.exports = async (req, res) => {
       //   )
       // );
       // const base64Image = await imgBuffer.toString("base64");
+      console.log("add :", req.header);
       const uploader = async (path) =>
         await cloudinary.uploads(path, "uploads");
       let { path } = file;
