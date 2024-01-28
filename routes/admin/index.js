@@ -18,7 +18,6 @@ route.post(
   upload.single("photo"),
   require("./addCamp")
 );
-
 // Update camp : /camping/api/admin/updateCamp
 route.put("/updateCamp", verifyToken, require("./updateCamp"));
 

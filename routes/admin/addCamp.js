@@ -17,7 +17,6 @@ module.exports = async (req, res) => {
     } = req.body;
     // console.log(req.body);
     // const imgUrl = `${req.protocol}://${req.headers.host}/file/${req.file.filename}`;
-    // console.log(imgUrl);
     if (
       req.file &&
       title &&
@@ -44,7 +43,6 @@ module.exports = async (req, res) => {
       const { url } = uploader(path);
       fs.unlinkSync(path);
 
-      // const imgUrl = `/uploads/${req.file.filename}`;
       const newCamp = await new Camp({
         title,
         limiteParticipant,
