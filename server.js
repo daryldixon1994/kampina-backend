@@ -31,15 +31,18 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // user routes
 app.use(
   "/camping/api",
-  (req, res, next) => {
-    console.log(req.headers);
-    next();
-  },
   require("./routes/user")
 );
 
 // admin routes
-app.use("/camping/api/admin", require("./routes/admin"));
+app.use(
+  "/camping/api/admin",
+  (req, res, next) => {
+    console.log(req.headers);
+    next();
+  },
+  require("./routes/admin")
+);
 
 app.listen(PORT, (err) => {
   if (err) throw err;

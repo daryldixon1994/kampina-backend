@@ -3,6 +3,7 @@ const cloudinary = require("../../middlewares/cloudinary");
 const fs = require("fs");
 // const path = require("path");
 module.exports = async (req, res) => {
+  // console.log(req.headers);
   try {
     let {
       title,
@@ -37,12 +38,12 @@ module.exports = async (req, res) => {
       //   )
       // );
       // const base64Image = await imgBuffer.toString("base64");
-      console.log("add :", req.header);
       const uploader = async (path) =>
         await cloudinary.uploads(path, "uploads");
-      let { path } = file;
-      const { url } = uploader(path);
+      let { path } = req.file;
+      const { url } = await uploader(path);
       fs.unlinkSync(path);
+      console.log(url);
 
       const newCamp = await new Camp({
         title,

@@ -2,7 +2,8 @@ const Camp = require("../../models/Camp");
 
 module.exports = async (req, res) => {
   try {
-    let { id, campId } = req.query;
+    let { id } = req.auth;
+    let { campId } = req.query;
     let existedUser = await Camp.findOne({ users: id });
 
     if (existedUser) {
