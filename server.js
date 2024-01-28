@@ -30,7 +30,13 @@ var corsOptionsDelegate = function (req, callback) {
   }
   callback(null, corsOptions); // callback expects two parameters: error and options
 };
-app.use(cors(corsOptionsDelegate));
+let options = {
+  origin: "http://localhost:3000",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
+app.use(cors(options));
 // app.use(function (req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
 //   res.header(
