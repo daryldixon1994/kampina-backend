@@ -25,6 +25,7 @@ module.exports = async (req, res) => {
         id: user.id,
         email: user.email,
         isUser: user.isUser,
+        isAdmin: user.isUser,
       },
       KEY,
       {
@@ -36,6 +37,7 @@ module.exports = async (req, res) => {
       data: {
         userId: user._id,
         isUser: user.isUser,
+        isAdmin: user.isAdmin,
         isBanned: user.isBanned,
         token,
       },

@@ -1,6 +1,8 @@
 const User = require("../../models/User");
 const fs = require("fs");
 const path = require("path");
+const cloudinary = require("../../middlewares/cloudinary");
+
 module.exports = async (req, res) => {
   try {
     let { userId } = req.query;
@@ -13,7 +15,7 @@ module.exports = async (req, res) => {
     // );
     // const base64Image = await imgBuffer.toString("base64");
     const imgUrl = `/uploads/${req.file.filename}`;
-    const newCamp = await User.findByIdAndUpdate(
+    await User.findByIdAndUpdate(
       userId,
       {
         $set: { imgUrl },

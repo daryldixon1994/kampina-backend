@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 module.exports = async (req, res) => {
   try {
-    let { id } = req.params;
+    let { id } = req.auth;
     let { email } = req.body;
     if (email) {
       let existedUser = await User.findOne({ email });

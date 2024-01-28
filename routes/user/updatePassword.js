@@ -2,7 +2,7 @@ const User = require("../../models/User");
 const bcrypt = require("bcrypt");
 module.exports = async (req, res) => {
   try {
-    let { id } = req.params;
+    let { id } = req.auth;
     let { password } = req.body;
     let testPassword = await password.match(
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()_+|~-]).{8,}$/

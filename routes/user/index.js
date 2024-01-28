@@ -1,7 +1,7 @@
 const express = require("express");
 const route = express.Router();
 const multer = require("../../middlewares/upload");
-
+const verifyToken = require("../../middlewares/verifyToken");
 // Register router : /camping/api/register
 route.post("/register", require("./register"));
 
@@ -9,27 +9,32 @@ route.post("/register", require("./register"));
 route.post("/login", require("./login"));
 
 // join camp : /camping/api/join
-route.put("/join", require("./joinCamp"));
+route.put("/join", verifyToken, require("./joinCamp"));
 
 // leave camp : /camping/api/leave
-route.put("/leave", require("./leaveCamp"));
+route.put("/leave", verifyToken, require("./leaveCamp"));
 
 // get camps : /camping/api/camps
-route.get("/camps", require("./getCamps"));
+route.get("/camps", verifyToken, require("./getCamps"));
 
 // get own camps : /camping/api/myCamps
-route.get("/myCamps", require("./getOwnCamps"));
+route.get("/myCamps", verifyToken, require("./getOwnCamps"));
 
 // get own camps : /camping/api/profile
-route.get("/profile/:id", require("./getProfile"));
+route.get("/profile", verifyToken, require("./getProfile"));
 
 // update photo : /camping/api/updateImage
-route.put("/updateImage", require("./updateImage"));
+route.put(
+  "/updateImage",
+  verifyToken,
+  multer.single("photo"),
+  require("./updateImage")
+);
 
 // update infos : /camping/api/updateInfos
-route.put("/updateInfos/:id", require("./updateInfos"));
+route.put("/updateInfos", verifyToken, require("./updateInfos"));
 
 // update password : /camping/api/updatePassword
-route.put("/updatePassword/:id", require("./updatePassword"));
+route.put("/updatePassword", verifyToken, require("./updatePassword"));
 
 module.exports = route;

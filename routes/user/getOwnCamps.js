@@ -1,7 +1,7 @@
 const Camp = require("../../models/Camp");
 module.exports = async (req, res) => {
   try {
-    let { id } = req.query;
+    let { id } = req.auth;
     const ownCamps = await Camp.find({ users: id }).populate(
       "users",
       "userName email imgUrl phone"
