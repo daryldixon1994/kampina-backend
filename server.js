@@ -22,17 +22,14 @@ mongoose
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["https://kampina.netlify.app", "http://localhost:3000"],
   })
 );
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // user routes
-app.use(
-  "/camping/api",
-  require("./routes/user")
-);
+app.use("/camping/api", require("./routes/user"));
 
 // admin routes
 app.use(
