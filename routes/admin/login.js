@@ -5,6 +5,7 @@ require("dotenv").config();
 module.exports = async (req, res) => {
   let KEY = process.env.KEY;
   let { email, password } = req.body;
+ 
   try {
     let admin = await Admin.findOne({ email });
     if (!admin) {

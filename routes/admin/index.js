@@ -6,7 +6,7 @@ const verifyToken = require("../../middlewares/verifyToken");
 route.post("/register", require("./register"));
 
 // Login router : /camping/api/admin/login
-route.post("/login", require("./login"));
+route.post("/login",  require("./login"));
 
 // Get camps : /camping/api/admin/camps
 route.get("/camps", verifyToken, require("./getCamps"));
