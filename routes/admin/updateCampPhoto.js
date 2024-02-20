@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
     // const imgUrl = `/uploads/${req.file.filename}`;
     const uploader = async (path) => await cloudinary.uploads(path, "uploads");
     let { path } = file;
-    const { url } = uploader(path);
+    const { url } = await uploader(path);
     fs.unlinkSync(path);
     const newCamp = await Camp.findByIdAndUpdate(
       campId,
