@@ -35,7 +35,7 @@ app.use("/camping/api", require("./routes/user"));
 app.use(
   "/camping/api/admin",
   (req, res, next) => {
-    console.log(req.headers);
+    // console.log(req.headers);
     next();
   },
   require("./routes/admin")
