@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
     // const base64Image = await imgBuffer.toString("base64");
     // const imgUrl = `/uploads/${req.file.filename}`;
     const uploader = async (path) => await cloudinary.uploads(path, "uploads");
-    let { path } = file;
+    let { path } = req.file;
     const { url } = await uploader(path);
     fs.unlinkSync(path);
     const newCamp = await Camp.findByIdAndUpdate(
